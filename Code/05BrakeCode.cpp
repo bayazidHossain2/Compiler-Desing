@@ -2,6 +2,7 @@
 #include<regex>
 #include<vector>
 #include<fstream>
+#include<string>
 
 using namespace std;
 
@@ -11,14 +12,14 @@ string strip(string );
 string getSeperatorName(string );
 string getType(string );
 
-const string separators = "[#\\s+<>\\(\\)\\{\\},\\.;\\[\\]]";
+const string separators = "[=\\s+<>\\(\\)\\{\\},\\.;\\[\\]]";
 const string keywords = "(auto)|(break)|(case)|(char)|(const)|(continue)|(default)|(do)|(double)|(else)|(enum)|(extern)|(float)|(for)|(goto)|(if)|(int)|(long)|(register)|(return)|(short)|(signed)|(sizeof)|(static)|(struct)|(switch)|(typedef)|(union)|(unsigned)|(void)|(volatile)|(while)";
 const string number = "0|(-?[1-9][0-9]*)";
 const string lattersValidName = "[A-Za-z_][A-Za-z0-9_]*";
 
 int main(){
     //freopen("output.txt","w",stdout);
-    if(regex_match("910",regex(number))){
+    if(regex_match("=",regex(separators))){
         cout<<"match"<<endl;
     }else{
         cout<<"Not "<<endl;
@@ -39,6 +40,25 @@ int main(){
     while(getline(fs,line)){
         line = strip(line);
         cout<<"After strip line is : \""<<line<<"\""<<endl;
+        if(line[0]=='#'){
+            tokens.push_back({"PREPROSESSOR","#"});
+            line = line.substr(1);
+            if(regex_search(line,match,regex("[\\s<]+"))){
+                tokens.push_back({"PREPROSESSOR_TYPE",match.prefix()});
+                tokens.push_back({getSeperatorName(match.str()),match.str()});
+                line=match.suffix();
+            }
+            if(regex_search(line,match,regex("[\\s>]+"))){
+                if(match.str()==">"){
+                    tokens.push_back({"HEADER_FILE",match.prefix()});
+                    tokens.push_back({getSeperatorName(match.str()),match.str()});
+                }else{
+                    tokens.push_back({"CONSTANT_IDENTIFER",match.prefix()});
+                    tokens.push_back({getSeperatorName(match.str()),match.str()});
+                    tokens.push_back({"CONSTANT_VALUE",match.suffix()});
+                }
+            }continue;
+        }
         start:
         ///Skiping line checking
         if(multilineCommentOut){
@@ -101,9 +121,7 @@ int main(){
 }
 
 string getSeperatorName(string separator){
-    if(separator=="#"){
-        return "PREPROSSOR";
-    }else if(separator=="("){
+    if(separator=="("){
         return "OPEN_PARANTHESES";
     }else if(separator==")"){
         return "CLOSE_PARANTHESES";
@@ -125,6 +143,8 @@ string getSeperatorName(string separator){
         return "DOT_OPERATOR";
     }else if(separator==";"){
         return "SEMECLONE";
+    }else if(separator=="="){
+        return "ASSIGNMENT_OPERATOR";
     }else{
         return "SPACES";
     }
