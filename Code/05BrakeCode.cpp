@@ -12,18 +12,18 @@ string strip(string );
 string getSeperatorName(string );
 string getType(string );
 
-const string separators = "[=\\s+<>\\(\\)\\{\\},\\.;\\[\\]]";
+const string separators = "[=<>\\(\\)\\{\\},\\.;\\[\\]]|(\\s)+";
 const string keywords = "(auto)|(break)|(case)|(char)|(const)|(continue)|(default)|(do)|(double)|(else)|(enum)|(extern)|(float)|(for)|(goto)|(if)|(int)|(long)|(register)|(return)|(short)|(signed)|(sizeof)|(static)|(struct)|(switch)|(typedef)|(union)|(unsigned)|(void)|(volatile)|(while)";
 const string number = "0|(-?[1-9][0-9]*)";
 const string lattersValidName = "[A-Za-z_][A-Za-z0-9_]*";
 
 int main(){
     //freopen("output.txt","w",stdout);
-    if(regex_match("=",regex(separators))){
+    /*if(regex_match("=",regex(separators))){
         cout<<"match"<<endl;
     }else{
         cout<<"Not "<<endl;
-    }
+    }*/
     string fileName="sourceCode.c";
     ifstream fs;
     fs.open(fileName);
@@ -39,16 +39,17 @@ int main(){
     vector<pair<string,string>> tokens;
     while(getline(fs,line)){
         line = strip(line);
-        cout<<"After strip line is : \""<<line<<"\""<<endl;
+        //cout<<"After strip line is : \""<<line<<"\""<<endl;
+        ///Preprocessor
         if(line[0]=='#'){
-            tokens.push_back({"PREPROSESSOR","#"});
+            tokens.push_back({"PREPROCESSOR","#"});
             line = line.substr(1);
-            if(regex_search(line,match,regex("[\\s<]+"))){
-                tokens.push_back({"PREPROSESSOR_TYPE",match.prefix()});
+            if(regex_search(line,match,regex("<|(\\s)+"))){
+                tokens.push_back({"PREPROCESSOR_TYPE",match.prefix()});
                 tokens.push_back({getSeperatorName(match.str()),match.str()});
                 line=match.suffix();
             }
-            if(regex_search(line,match,regex("[\\s>]+"))){
+            if(regex_search(line,match,regex(">|(\\s)+"))){
                 if(match.str()==">"){
                     tokens.push_back({"HEADER_FILE",match.prefix()});
                     tokens.push_back({getSeperatorName(match.str()),match.str()});
@@ -60,7 +61,7 @@ int main(){
             }continue;
         }
         start:
-        ///Skiping line checking
+        ///Skipping line checking or Comment out part
         if(multilineCommentOut){
             //cout<<"commented"<<endl;
             if(regex_search(line,match,regex("\\*/"))){
@@ -93,25 +94,24 @@ int main(){
                 continue;
             }
         }
-        cout<<"Processing line is : \""<<line<<"\""<<endl;
+        //cout<<"Processing line is : \""<<line<<"\""<<endl;
         if(line==""){
-            cout<<"Empty line"<<endl;
+            //cout<<"Empty line"<<endl;
             continue;
         }
         ///Separator finding
         if(regex_search(line,match,regex(separators))){
-            cout<<"Separator found : \""<<match.str()<<"\""<<endl;
-            cout<<"Name is : "<<getSeperatorName(match.str())<<endl;
+            //cout<<"Separator found : \""<<match.str()<<"\""<<endl;
+            //cout<<"Name is : "<<getSeperatorName(match.str())<<endl;
             if(match.prefix()!=""){
-                cout<<"prefix found : \""<<match.prefix()<<"\""<<endl;
-                cout<<"Name is : "<<getType(match.prefix())<<endl;
+                //cout<<"prefix found : \""<<match.prefix()<<"\""<<endl;
+                //cout<<"Name is : "<<getType(match.prefix())<<endl;
                 tokens.push_back(make_pair(getType(match.prefix()),match.prefix()));
             }
             tokens.push_back(make_pair(getSeperatorName(match.str()),match.str()));
             line=match.suffix();
             goto start;
         }
-
     }
     cout<<endl<<"********* Tokens are ***********"<<endl<<endl;
     for(pair<string,string> token : tokens){
