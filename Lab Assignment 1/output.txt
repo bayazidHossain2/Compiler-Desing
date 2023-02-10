@@ -1,0 +1,19 @@
+File open success.
+After strip line is : "#include  <stdio.h>"
+Processing line is : "#include  <stdio.h>"
+Header found
+A Valid header found
+Header is :"stdio.h"
+After strip line is : "int main(){"
+Processing line is : "int main(){"
+Main found.
+Main function found.
+Main should be return an integer.
+After strip line is : ""
+empty line or comment line
+After strip line is : "return 77777;"
+Processing line is : "return 77777;"
+Return statement found
+Error found in line : 3
+Error message : Return type not an integer.
+

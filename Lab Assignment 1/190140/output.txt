@@ -1,0 +1,20 @@
+File open success.
+After strip line is : "#include  <stdio.h>"
+Processing line is : "#include  <stdio.h>"
+Header found
+A Valid header found
+Header is :"stdio.h"
+After strip line is : "int main(){"
+Processing line is : "int main(){"
+Main found.
+Main function found.
+Main should be return an integer.
+After strip line is : "//dkf"
+empty line or comment line
+After strip line is : "return 1000;"
+Processing line is : "return 1000;"
+Return statement found
+Return type an integer found.
+After strip line is : "}"
+Processing line is : "}"
+*************Compilation success.****************

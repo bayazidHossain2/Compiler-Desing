@@ -1,0 +1,80 @@
+File open success.
+
+********* Tokens are ***********
+
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'stdio.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'conio.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'stdlib.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'math.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'string.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'include'> 
+ <'OPEN_ANGULAR_BRAKET', '<'> 
+ <'HEADER_FILE', 'time.h'> 
+ <'CLOSE_ANGULAR_BRAKET', '>'> 
+ <'PREPROCESSOR', '#'> 
+ <'PREPROCESSOR_TYPE', 'define'> 
+ <'SPACES', ' '> 
+ <'CONSTANT_IDENTIFER', 'pi'> 
+ <'SPACES', '   '> 
+ <'CONSTANT_VALUE', '3.14159'> 
+ <'KEYWORD', 'int'> 
+ <'SPACES', ' '> 
+ <'IDENTIFIRE', 'main'> 
+ <'OPEN_PARANTHESES', '('> 
+ <'CLOSE_PARANTHESES', ')'> 
+ <'OPEN_CURLY_BRACES', '{'> 
+ <'KEYWORD', 'int'> 
+ <'SPACES', ' '> 
+ <'IDENTIFIRE', 'abd'> 
+ <'COMA_DELIMATOR', ','> 
+ <'IDENTIFIRE', 'def'> 
+ <'SEMECLONE', ';'> 
+ <'IDENTIFIRE', 'abd'> 
+ <'ASSIGNMENT_OPERATOR', '='> 
+ <'CONSTANT_NUMBER', '6788'> 
+ <'SEMECLONE', ';'> 
+ <'KEYWORD', 'float'> 
+ <'SPACES', ' '> 
+ <'IDENTIFIRE', 'dfg'> 
+ <'COMA_DELIMATOR', ','> 
+ <'IDENTIFIRE', 'hij'> 
+ <'SEMECLONE', ';'> 
+ <'KEYWORD', 'double'> 
+ <'SPACES', ' '> 
+ <'IDENTIFIRE', 'ijk'> 
+ <'COMA_DELIMATOR', ','> 
+ <'IDENTIFIRE', 'lmn'> 
+ <'SEMECLONE', ';'> 
+ <'KEYWORD', 'char'> 
+ <'SPACES', ' '> 
+ <'IDENTIFIRE', 'mnp'> 
+ <'COMA_DELIMATOR', ','> 
+ <'IDENTIFIRE', 'qurst'> 
+ <'SEMECLONE', ';'> 
+ <'KEYWORD', 'return'> 
+ <'SPACES', ' '> 
+ <'CONSTANT_NUMBER', '0'> 
+ <'SEMECLONE', ';'> 
+ <'CLOSE_CURLY_BRACES', '}'> 
+
