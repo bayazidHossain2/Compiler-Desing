@@ -42,6 +42,9 @@ void Parser(){
                 }
             }
         }else if(tokens[pointer].second=="printf"){
+            if(!headers.count("stdio.h")){
+                error_message(line_number_from_token_number[pointer],"printf can not recognize as a function.");
+            }
             const regex r("(%d|%c|%lf|%f|%s)");;
             string out = "";
             pointer+=2;
@@ -57,6 +60,65 @@ void Parser(){
             }
             cout<<"-> "<<out.substr(1,out.length()-2)<<endl;
         }
+        ///Castom Function work
+        else if(tokens[pointer].second=="elihw"){
+            cout<<"elihw find"<<endl;
+            if(!headers.count("cat.h")){
+                error_message(line_number_from_token_number[pointer],"elihw can not recognize.");
+            }pointer++;
+            if(tokens[pointer].second!="("){
+                error_message(line_number_from_token_number[pointer],"Opening PARANTHESES Required.");
+            }pointer++;
+            int semecloneCount=0;
+            while(pointer<tokens.size()&&tokens[pointer].second!=")"){
+                cout<<"stet : "<<tokens[pointer].first<<' '<<tokens[pointer].second<<endl;
+                if(tokens[pointer].second==";"){
+                    semecloneCount++;
+                    if(semecloneCount==1){
+                        if(tokens[pointer-1].second=="("){
+
+                        }else{
+                            //cout<<" stat : "<<tokens[pointer-1].first<<" "<<tokens[pointer-2].first<<' '<<tokens[pointer-3].first<<' '<<tokens[pointer-4].first<<endl;
+                            if(tokens[pointer-1].first=="CONSTANT_NUMBER"&&tokens[pointer-2].first=="ASSIGNMENT_OPERATOR"&&tokens[pointer-3].first=="IDENTIFIRE"&&tokens[pointer-4].first=="OPEN_PARANTHESES"){
+                                cout<<"First s okk"<<endl;
+                            }else{
+                                error_message(line_number_from_token_number[pointer],"elihw First statement is invalid.");
+                            }
+                        }
+                    }
+
+                    if(semecloneCount==2){
+                        if(tokens[pointer-1].first=="CONSTANT_NUMBER"&&tokens[pointer-2].first=="RELATIONAL_OPERATOR"&&tokens[pointer-3].first=="IDENTIFIRE"&&tokens[pointer-4].first=="SEMECLONE"){
+                                cout<<"second s okk"<<endl;
+                        }else{
+                            error_message(line_number_from_token_number[pointer],"elihw Second statement is invalid.");
+                        }
+                    }
+                }
+
+
+                pointer++;
+            }
+            if(semecloneCount!=2){
+                error_message(line_number_from_token_number[pointer],"elihw parameter invalid.");
+            }
+            stack<string> stk;
+            while(pointer<tokens.size()){
+                if(tokens[pointer].second=="{"){
+                    stk.push("{");
+                }else if(tokens[pointer].second==")"){
+                    if(!stk.empty()){
+                        stk.pop();
+                    }
+                }
+                if(stk.empty()){
+                    break;
+                }
+                pointer++;
+            }
+            //cout<<"Total semeclone : "<<semecloneCount<<endl;
+        }
+
         ///Assigning a value to a existing variable
         else if(tokens[pointer].first=="IDENTIFIRE"){
             string id = tokens[pointer].second;
@@ -73,7 +135,7 @@ void Parser(){
                     variables[id].second = calculate(expressions);
                     //cout<<"returned value is : "<<variables[id].second<<endl;
                 }else{
-                    error_message(line_number_from_token_number[pointer],"variable "+tokens[pointer].second+" not declared in this scope.");
+                    error_message(line_number_from_token_number[pointer],"variable '"+tokens[pointer].second+"' not declared in this scope.");
                 }
             }else{
                 error_message(line_number_from_token_number[pointer],"invalid grammar. Identifier never followed by space.");
@@ -144,7 +206,7 @@ int code_preprossing(){
         if(tokens[i].first == "PREPROCESSOR"){
             i++;
             if(tokens[i].second == "include"){
-                headers.push_back(tokens[i+2].second);
+                //headers.push_back(tokens[i+2].second);
                 i+=3;
             }else{
                 variables[tokens[i+2].second].first = "global_const";

@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<conio.h>a
+#include<cat.h>
 #define pi   3.14159
 
 int main(){
@@ -7,6 +7,14 @@ int main(){
     printf("Value of h = %d",h);
     //a=3;
     b=5;
+    //teeth=100;
+    //tail=123;
+    elihw(tail=0;tail<=5;tail++){
+        printf("elihw ");
+    }
+
+
+
     c=(a+b)/2;
     printf("value of a = %d and value of b = %d ",a,b);
     printf("average of a and b is = %d ",c);

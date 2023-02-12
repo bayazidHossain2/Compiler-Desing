@@ -8,7 +8,7 @@ void Lexer(string fileName){
     ifstream fs;
     fs.open(fileName);
     if (!fs) {
-        cout << "Unable to open file";
+        cout << "Unable to open Source file";
         exit(1); // terminate with error
     }else{
         cout<<"File open success."<<endl;
@@ -40,6 +40,20 @@ void Lexer(string fileName){
             }
             if(regex_search(line,match,regex(">|(\\s)+"))){
                 if(match.str()==">"){
+                    if(headers.count(match.prefix())){
+                        error_message(line_number,"Header already included.");
+                    }else{
+                        headers.insert(match.prefix());
+                        if(match.prefix()=="stdio.h"){
+                            functions.insert("printf");
+                        }else if(match.prefix()=="cat.h"){
+                            variables["teeth"].first="int";
+                            variables["teeth"].second="0";
+                            variables["tail"].first="int";
+                            variables["tail"].second="0";
+                            functions.insert("elihw");
+                        }
+                    }
                     tokens.push_back({"HEADER_FILE",match.prefix()});
                     line_number_from_token_number.push_back(line_number);
                     tokens.push_back({getSeperatorName(match.str()),match.str()});
